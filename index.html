@@ -2,46 +2,29 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Viewer</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden; /* Menghilangkan scrollbar ganda */
-            background-color: #ffffff;
-        }
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        iframe { border: none; width: 100%; height: 100%; }
     </style>
 </head>
 <body>
-
-    <iframe id="eventFrame" src="" allow="geolocation; microphone; camera"></iframe>
+    <iframe id="frame" src=""></iframe>
 
     <script>
-        // 1. Ambil Slug dari URL (misal: /EVT_123)
-        const path = window.location.pathname.replace(/^\/|\/$/g, '');
+        // Ambil path setelah '/' (misal: EVT_177198849765092)
+        const path = window.location.pathname.split('/').pop();
+        const gasBase = "https://script.google.com/macros/s/AKfycbzTL8S-x_LDWQBgxA0wa3UWKctCHTRr1CbRUQFj16lwIgu2iXCEoxQQKMi16w2GQPsqWA/exec";
+
+        const frame = document.getElementById('frame');
         
-        // 2. URL Google Apps Script kamu
-        const gasBaseUrl = "https://script.google.com/macros/s/AKfycbzTL8S-x_LDWQBgxA0wa3UWKctCHTRr1CbRUQFj16lwIgu2iXCEoxQQKMi16w2GQPsqWA/exec";
-
-        const frame = document.getElementById('eventFrame');
-
-        if (path) {
-            // Jika ada slug, masukkan ke iframe dengan parameter ?event=
-            frame.src = `${gasBaseUrl}?event=${path}`;
+        if (path && path.startsWith('EVT_')) {
+            // Jika ada slug EVT, tampilkan di iframe
+            frame.src = `${gasBase}?event=${path}`;
         } else {
-            // Jika tidak ada slug (halaman utama), tampilkan halaman default Apps Script
-            frame.src = gasBaseUrl;
+            // Jika tidak ada slug, tampilkan halaman utama GAS
+            frame.src = gasBase;
         }
     </script>
 </body>
