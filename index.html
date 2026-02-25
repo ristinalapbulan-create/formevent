@@ -3,27 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrasi Event PSD - Disdikbud</title>
+    
+    <title>Registrasi Event - Disdikbud Tabalong</title>
+    <meta name="description" content="Sistem Registrasi Event Resmi Dinas Pendidikan dan Kebudayaan Kabupaten Tabalong">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://form.disdikbudtabalong.id/">
+    <meta property="og:title" content="Registrasi Event - Disdikbud Tabalong">
+    <meta property="og:description" content="Klik di sini untuk mendaftar event resmi Disdikbud Tabalong.">
+    
+    <meta property="og:image" content="https://raw.githubusercontent.com/ristinalapbulan-create/formevent/main/FORMEVENT.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/ristinalapbulan-create/formevent/main/FORMEVENT.jpg">
+
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        iframe { border: none; width: 100%; height: 100%; }
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background-color: #ffffff;
+        }
+        iframe { 
+            border: none; 
+            width: 100%; 
+            height: 100%;
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <iframe id="frame" src=""></iframe>
+    <iframe id="frame" src="" allow="geolocation; microphone; camera"></iframe>
 
     <script>
-        // Ambil path setelah '/' (misal: EVT_177198849765092)
-        const path = window.location.pathname.split('/').pop();
+        // Mengambil ID dari URL (misal: form.disdikbudtabalong.id/EVT_123)
+        const path = window.location.pathname.split('/').filter(Boolean).pop();
+        
+        // Link Apps Script kamu
         const gasBase = "https://script.google.com/macros/s/AKfycbzTL8S-x_LDWQBgxA0wa3UWKctCHTRr1CbRUQFj16lwIgu2iXCEoxQQKMi16w2GQPsqWA/exec";
 
         const frame = document.getElementById('frame');
         
         if (path && path.startsWith('EVT_')) {
-            // Jika ada slug EVT, tampilkan di iframe
+            // Jika ada kode event, buka form tersebut
             frame.src = `${gasBase}?event=${path}`;
         } else {
-            // Jika tidak ada slug, tampilkan halaman utama GAS
+            // Jika tidak ada kode, buka halaman admin/utama
             frame.src = gasBase;
         }
     </script>
